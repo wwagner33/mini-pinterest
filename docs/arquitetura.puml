@@ -1,0 +1,32 @@
+@startuml
+!define NodeJS<<node.js>>
+!define HTML5<<html5>>
+!define AlpineJS<<javascript>>
+!define PostgreSQL<<postgresql>>
+!define Multer<<middleware>>
+
+package "Frontend" {
+  [index.html] <<HTML5>>
+  [Alpine.js]    <<AlpineJS>>
+}
+
+package "Backend (Node.js)" {
+  [Express Server] <<NodeJS>>
+  [Multer]         <<Multer>>
+  [renameFile.js]  <<Helper>>
+  [Sequelize ORM]  <<ORM>>
+}
+
+database "PostgreSQL" as DB <<PostgreSQL>>
+folder "File Storage" as FS
+
+' Fluxos principais
+[index.html] --> [Express Server]        : GET /, fetch /api/images
+[Express Server] --> [Sequelize ORM]      : CRUD JSON
+[Sequelize ORM] --> DB                    : SQL queries
+[index.html] --> [Multer]                 : POST /api/images (formData)
+[Multer] --> [renameFile.js]              : gera novo nome
+[renameFile.js] --> FS                    : salva arquivo
+[Express Server] --> DB                   : grava metadados (filename, url)
+[index.html] <-- [Express Server]         : JSON responses + rota /uploads/*
+@enduml

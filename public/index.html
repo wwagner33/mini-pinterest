@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini-Pinterest</title>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <style>
+    body { font-family: sans-serif; margin:2rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,200px); gap:1rem; }
+    .card { border:1px solid #ccc; padding:0.5rem; border-radius:8px; }
+    img { max-width:100%; border-radius:4px; }
+  </style>
+</head>
+<body x-data="gallery()" x-init="fetchImages()">
+
+  <h1>📌 Mini-Pinterest</h1>
+
+  <!-- Formulário de upload -->
+  <form @submit.prevent="upload()" style="margin-bottom:2rem;">
+    <input type="text" x-model="form.title" placeholder="Título" required>
+    <input type="text" x-model="form.desc"  placeholder="Descrição">
+    <input type="file"   @change="onFile($event)" required>
+    <button type="submit">📥 Upload</button>
+  </form>
+
+  <!-- Galeria -->
+  <div class="grid">
+    <template x-for="img in images" :key="img.id">
+      <div class="card">
+        <img :src="img.url" :alt="img.title">
+        <h3 x-text="img.title"></h3>
+        <p x-text="img.desc"></p>
+        <button @click="remove(img.id)">🗑️</button>
+      </div>
+    </template>
+  </div>
+
+  <script>
+    function gallery() {
+      return {
+        images: [],
+        form: { title:'', desc:'', file:null },
+        fetchImages() {
+          fetch('/api/images')
+            .then(r=>r.json())
+            .then(data=> this.images = data);
+        },
+        onFile(e) { this.form.file = e.target.files[0] },
+        async upload() {
+          const fd = new FormData();
+          fd.append('title', this.form.title);
+          fd.append('desc' , this.form.desc);
+          fd.append('file' , this.form.file);
+          await fetch('/api/images', { method:'POST', body:fd });
+          this.form = {title:'', desc:'', file:null};
+          this.fetchImages();
+        },
+        async remove(id) {
+          await fetch(`/api/images/${id}`, { method:'DELETE' });
+          this.fetchImages();
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
