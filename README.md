@@ -39,41 +39,7 @@ Mini-Pinterest é um app didático que mostra na prática como montar um CRUD de
 
 
 ## Arquitetura do Sistema
-
-```plantuml
-@startuml
-!define NodeJS<<node.js>>
-!define AlpineJS<<javascript>>
-!define SQLite<<database>>
-!define Multer<<middleware>>
-!define Sharp<<tool>>
-
-package "Frontend" {
-  [index.html] <<AlpineJS>>
-}
-
-package "Backend" {
-  [Express Server] <<NodeJS>>
-  [Multer]         <<Multer>>
-  [Sharp]          <<Sharp>>
-  [Sequelize ORM]  <<ORM>>
-}
-
-database "SQLite" as DB <<SQLite>>
-folder "File Storage" as FS
-
-index.html --> Express Server      : GET /, fetch /api/images
-Express Server --> Sequelize ORM  : CRUD JSON
-Sequelize ORM --> DB              : SQL queries
-index.html --> Multer             : POST /api/images
-Multer --> Sharp                  : gera thumbnails
-Multer --> FS                     : salva uploads
-Express Server --> DB             : grava metadados
-Express Server --> FS             : apaga arquivos
-index.html <-- Express Server     : JSON + arquivos estáticos
-@enduml
-```
-[(ver imagem)](docs/arquitetura.png)
+<img src="docs/arquitetura.png"/>
 
 > Você pode gerar essa imagem localmente com PlantUML PicoWeb Server ou [PlantUML Online](https://www.plantuml.com/plantuml).
 
