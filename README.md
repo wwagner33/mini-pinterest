@@ -31,11 +31,9 @@ Mini-Pinterest é um app didático que mostra na prática como montar um CRUD de
 | RF08  | Paginar e filtrar imagens     | Como usuário, quero ver só 20 pins por vez e poder buscar por título ou tags, para não virar jedi do scroll infinito.                                |
 | RF09  | Gerar thumbnails              | Como usuário, quero ver miniaturas na galeria para carregar tudo rapidinho e só puxar a imagem full quando clicar.                                   |
 | RF10  | Curtir e comentar             | Como usuário, quero marcar pins como favoritos e deixar comentários para interagir com a galera.                                                    |
-| RF11  | Tratar erros e logs           | Como desenvolvedor, quero registrar erros e logs para facilitar o debugging e não ficar caçando fantasma no console.                                  |
-| RF12  | Testes automatizados          | Como desenvolvedor, quero ter testes unitários e de integração (Jest + Supertest) para garantir que nada quebre sem eu perceber.                    |
-| RF13  | Configurar via variáveis      | Como desenvolvedor, quero manter todas as credenciais e caminhos no `.env`, sem espalhar segredos no código.                                        |
-| RF14  | Garantir layout responsivo    | Como usuário, quero usar o app em celular, tablet ou desktop sem ver o layout quebrar feito castelo de cartas.                                      |
-| RF15  | Implementar segurança extra   | Como desenvolvedor, quero proteger contra XSS, uploads maliciosos e flood de requests, para não virar notícia de hacker no Twitter.                  |
+| RF11  | Tratar erros e logs           | Como desenvolvedor, quero registrar erros e logs para facilitar o debugging e não ficar caçando fantasma no console.                                  |                   |
+| RF12  | Configurar via variáveis      | Como desenvolvedor, quero manter todas as credenciais e caminhos no `.env`, sem espalhar segredos no código.                                        |
+| RF13  | Garantir layout responsivo    | Como usuário, quero usar o app em celular, tablet ou desktop sem ver o layout quebrar feito castelo de cartas.                      |                  |
 
 
 ## Arquitetura do Sistema

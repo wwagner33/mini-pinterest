@@ -17,7 +17,7 @@ package "Backend (Node.js)" {
   [Sequelize ORM]  <<ORM>>
 }
 
-database "PostgreSQL" as DB <<PostgreSQL>>
+database "SQLite" as DB <<SQLite>>
 folder "File Storage" as FS
 
 ' Fluxos principais
