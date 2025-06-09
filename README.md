@@ -36,7 +36,7 @@ Mini-Pinterest é um app didático que mostra na prática como montar um CRUD de
 | RF13 | Garantir layout responsivo | N/A                                                                | Uso de CSS responsivo no `styles.css`, adaptado a mobile/tablet/desktop | N/A                                                                       | Alta Prioridade |
 
 ## Arquitetura do Sistema
-<img src="docs/arquitetura.png"/>
+<img src="./docs/arquitetura.png"/>
 
 > Você pode gerar essa imagem localmente com PlantUML PicoWeb Server ou [PlantUML Online](https://www.plantuml.com/plantuml).
 
