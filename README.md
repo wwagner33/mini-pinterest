@@ -19,22 +19,21 @@ Mini-Pinterest é um app didático que mostra na prática como montar um CRUD de
 
 ## Requisitos Funcionais
 
-| ID    | Título                        | User Story                                                                                                                                          |
-|-------|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| RF01  | Fazer upload de imagem        | Como usuário, quero enviar uma imagem via formulário para que ela seja renomeada, salva em disco e seus metadados gravados no SQLite.                |
-| RF02  | Listar imagens                | Como usuário, quero ver minhas imagens em uma galeria dinâmica para navegar pelos meus pins com facilidade.                                           |
-| RF03  | Editar metadados              | Como usuário, quero editar título e descrição de um pin inline para corrigir ou atualizar informações sem recarregar a página.                       |
-| RF04  | Excluir imagem                | Como usuário, quero remover um pin indesejado, para manter a galeria organizada e liberar espaço no servidor.                                        |
-| RF05  | Validar uploads               | Como usuário, quero que apenas arquivos `.jpg`, `.png` ou `.gif` de até 5 MB sejam aceitos, para não entupir meu app de imagens gigantes.           |
-| RF06  | Servir arquivos estáticos     | Como usuário, quero que o servidor sirva o HTML, CSS, JS e as imagens uploadadas diretamente via `/public`.                                          |
-| RF07  | Autenticar usuários           | Como usuário, quero me cadastrar e logar para gerenciar minhas próprias imagens de forma segura.                                                    |
-| RF08  | Paginar e filtrar imagens     | Como usuário, quero ver só 20 pins por vez e poder buscar por título ou tags, para não virar jedi do scroll infinito.                                |
-| RF09  | Gerar thumbnails              | Como usuário, quero ver miniaturas na galeria para carregar tudo rapidinho e só puxar a imagem full quando clicar.                                   |
-| RF10  | Curtir e comentar             | Como usuário, quero marcar pins como favoritos e deixar comentários para interagir com a galera.                                                    |
-| RF11  | Tratar erros e logs           | Como desenvolvedor, quero registrar erros e logs para facilitar o debugging e não ficar caçando fantasma no console.                                  |                   |
-| RF12  | Configurar via variáveis      | Como desenvolvedor, quero manter todas as credenciais e caminhos no `.env`, sem espalhar segredos no código.                                        |
-| RF13  | Garantir layout responsivo    | Como usuário, quero usar o app em celular, tablet ou desktop sem ver o layout quebrar feito castelo de cartas.                      |                  |
-
+| ID   | Título                     | Backend                                                            | Frontend                                                                | Comunicação (API)                                                         | Prioridade      |
+| ---- | -------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------------------- | --------------- |
+| RF01 | Fazer upload de imagem     | Rota POST com Multer; renomear arquivo; salvar metadados no SQLite | Formulário de upload                                                    | `/api/images` com multipart/form-data                                     | Alta Prioridade |
+| RF02 | Listar imagens             | Rota GET que busca imagens do banco                                | Galeria dinâmica com Alpine.js                                          | `/api/images`                                                             | Alta Prioridade |
+| RF03 | Editar metadados           | Rota PUT que atualiza título e descrição                           | Edição inline via Alpine.js                                             | `/api/images/:id`                                                         | Alta Prioridade |
+| RF04 | Excluir imagem             | Rota DELETE que remove do banco e do disco                         | Botão "remover"                                                         | `/api/images/:id`                                                         | Alta Prioridade |
+| RF05 | Validar uploads            | Middleware de validação de tipo e tamanho de arquivo               | Mensagens de erro amigáveis no frontend                                 | Retorno da API com status de erro                                         | Alta Prioridade |
+| RF06 | Servir arquivos estáticos  | Configuração do Express para servir `public/`                      | Carregamento dos arquivos e imagens no HTML                             | N/A (é estático, sem necessidade de chamada AJAX)                         | Alta Prioridade |
+| RF07 | Autenticar usuários        | Rotas POST para cadastro/login; JWT para autenticação              | Formulários de login/cadastro; controle de sessão                       | `/api/auth/login`, `/api/auth/register`; headers com JWT                  | Alta Prioridade |
+| RF08 | Paginar e filtrar imagens  | Consulta paginada e filtrada no banco; parâmetros na query         | Campo de busca e botões de paginação                                    | `/api/images?page=x&search=texto`                                         | Alta Prioridade |
+| RF09 | Gerar thumbnails           | Sharp gera miniaturas ao receber a imagem                          | Exibe miniaturas na galeria                                             | Miniatura já servida como arquivo estático (`/public/uploads/thumbs/...`) | Alta Prioridade |
+| RF10 | Curtir e comentar          | Rotas POST para curtir e comentar, relacionando usuário e imagem   | Botões de curtir e campo de comentário                                  | `/api/images/:id/like`, `/api/images/:id/comment`                         | Alta Prioridade |
+| RF11 | Tratar erros e logs        | Middleware de erro; Winston para logs                              | Mensagens de erro amigáveis                                             | Retorno padronizado de erros HTTP                                         | Alta Prioridade |
+| RF12 | Configurar via variáveis   | Leitura de `.env` para chaves, caminhos e limites                  | N/A                                                                     | N/A                                                                       | Alta Prioridade |
+| RF13 | Garantir layout responsivo | N/A                                                                | Uso de CSS responsivo no `styles.css`, adaptado a mobile/tablet/desktop | N/A                                                                       | Alta Prioridade |
 
 ## Arquitetura do Sistema
 <img src="docs/arquitetura.png"/>
